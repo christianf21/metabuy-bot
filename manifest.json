@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+
+  "name": "MetaBuy Bot",
+  "description": "Adds to cart in a flash.",
+  "version": "1.0.0",
+
+  "background": {
+    "persistent": false,
+    "scripts": ["bg.js"]
+  },
+
+  "permissions": [ "tabs"],
+
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["http://store.nike.com/*"],
+      "js": ["jquery.min.js", "functional.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
