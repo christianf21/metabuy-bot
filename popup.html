@@ -2,17 +2,61 @@
 
 <head>
 	
+<link rel="stylesheet" href="libs/bootstrap.min.css" type="text/css">
+
 	<style type="text/css">
+
+	body
+	{
+		font-size: 15.5px !important;
+	}
 
 		#content
 		{
-			min-width:200px;
-			max-height:100px;
+			min-width:400px;
+			min-height:200px;
 		}
 
 		#button
 		{
 			font-weight: bold;
+		}
+
+		#form_wrap
+		{
+			max-width: 300px;
+			margin: 0 auto;
+		}
+
+		.inline
+		{
+			display:inline-block;
+		}
+
+		#shoeSize
+		{
+			width:150px;
+		}
+
+		#directLink
+		{
+			width:190px;
+		}
+
+		tr
+		{
+			height:40px;
+		}
+
+		.cursor
+		{
+			cursor: pointer;
+		}
+
+		.center
+		{
+			margin:0 auto;
+			text-align: center;
 		}
 
 	</style>
@@ -25,8 +69,34 @@
 <body>
 	
 <div id="content">	
-	
+<br />
 
+	<div id="form_wrap">
+		
+		  <div class="form-group">
+		    <label for="shoeSize" class="inline">Shoe Size&nbsp;&nbsp;&nbsp;</label>
+		    <input type="text" class="form-control inline" id="shoeSize" placeholder="9  9.5  10  10.5  11">
+		  </div>
+
+		  <div class="form-group">
+		    <table>
+		    	<tr>
+		    		<td><input type="radio" name="typeSearch" checked="" value="automatic" class="cursor"></td>
+		    		<td>&nbsp;&nbsp;&nbsp;Automatically scan @nikestore for link</td>
+		    	</tr>
+
+		    	<tr style="margin-top:80px;">
+		    		<td><input type="radio" name="typeSearch" checked="" value="direct" class="cursor"></td>
+		    		<td><label>&nbsp;&nbsp;&nbsp;Link: </label>&nbsp;&nbsp;&nbsp;<input type="text" class="form-control inline" id="directLink" placeholder=""></td>
+		    	</tr>
+		    </table>
+		  </div>
+
+		  <div class="form-group center">
+		  <button type="submit" class="btn btn-primary">Go!</button>
+		  </div>
+	</div>
+<br />
 </div>
 
 </body>

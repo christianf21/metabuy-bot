@@ -7,7 +7,7 @@
 
   "background": {
     "persistent": false,
-    "scripts": ["bg.js"]
+    "scripts": ["bg.js","libs/bootstrap.min.js"]
   },
 
   "permissions": [ "tabs"],
