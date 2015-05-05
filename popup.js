@@ -8,7 +8,7 @@ $(document).ready(function(){
 			if(option === "direct")
 			{
 				var link = $("#directLink").val();
-				alert("Link to go = " + link);
+				window.open(link,"_self");
 			}
 			else
 				saveSettings();
