@@ -87,7 +87,7 @@ function addToCart(size)
 		});
 
 	// Select size and add to cart
-	var select = $("select[name='skuAndSize']").val(target);
+	$("select[name='skuAndSize']").val(target);
 	$("button#buyingtools-add-to-cart-button")[0].click();
 }
 
