@@ -69,7 +69,7 @@ function chooseIndexShoe(indexShoe)
 	setTimeout(addToCart(),7000);
 }
 
-// Sizes available: 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12
+// Selects size and adds to cart. Sizes available: 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12
 function addToCart(size)
 {
 	var options = $("select[name='skuAndSize'] option");
@@ -91,7 +91,7 @@ function addToCart(size)
 	$("button#buyingtools-add-to-cart-button")[0].click();
 }
 
-// Clicks on the cart, then clicks on checkout
+// Clicks on the cart (to go to the cart page), and then clicks on checkout
 function goToCheckout()
 {
 	$("div.exp-default.exp-cart-container.exp-cartcount-visible").children("a:first")[0].click();
