@@ -8,7 +8,7 @@ $(document).ready(function(){
 			if(option === "direct")
 			{
 				var link = $("#directLink").val();
-				window.open(link,"_self");
+				window.open(link,"_blank");
 			}
 			else
 				saveSettings();
