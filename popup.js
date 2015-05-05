@@ -38,6 +38,11 @@ loadSettings();
 			$("input#shoeSize").val(localStorage["shoesize"]);
 		}
 
+		if(localStorage["shoename"] !== undefined)
+		{
+			$("input#shoeName").val(localStorage["shoename"]);
+		}
+
 		if(localStorage["radioOption"] !== undefined)
 		{
 			if(localStorage["radioOption"] === "automatic")
@@ -61,6 +66,7 @@ loadSettings();
 	function saveSettings()
 	{
 		localStorage["shoesize"] = $("input#shoeSize").val();
+		localStorage["shoename"] = $("input#shoeName").val();
 		localStorage["radioOption"] = $("input[name='typeSearch']:checked").val().trim();
 		localStorage["link"] = $("#directLink").val();
 	}
