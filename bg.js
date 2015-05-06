@@ -10,8 +10,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 			option: localStorage["radioOption"]
 	});
 
-
-
 });
 
 function containsTab(id)
