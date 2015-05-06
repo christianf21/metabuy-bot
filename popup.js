@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+localStorage["radioOption"] = "automatic"; // default option when starting the extension
 loadSettings();
 
 	$("button#go").on("click", function(){

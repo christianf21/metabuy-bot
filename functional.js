@@ -1,12 +1,15 @@
-//chrome.runtime.sendMessage("Nike Bot Online");
+chrome.runtime.sendMessage({status:"online"});
 
 
-/*chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
-	alert("Content script received = " + request.greeting);
+	if(request.option === "direct")
+	{
+		addToCart(request.size);
+	}
 
 });
-*/
+
 
 // Chooses any menu item from the store.nike.com
 function chooseMenuItem(menuItem)
@@ -31,8 +34,6 @@ function chooseMenuItem(menuItem)
 		});
 
 	$(items)[target].click();
-
-	setTimeout(chooseIndexShoe(3),5000);
 }
 
 // Chooses a shoe on any specified index
@@ -65,8 +66,6 @@ function chooseIndexShoe(indexShoe)
 
 			index++;
 		});
-
-	setTimeout(addToCart(),7000);
 }
 
 // Selects size and adds to cart. Sizes available: 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12
@@ -89,6 +88,7 @@ function addToCart(size)
 	// Select size and add to cart
 	$("select[name='skuAndSize']").val(target);
 	$("button#buyingtools-add-to-cart-button")[0].click();
+	goToCheckout();
 }
 
 // Clicks on the cart (to go to the cart page), and then clicks on checkout
