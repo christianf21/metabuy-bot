@@ -13,7 +13,10 @@ loadSettings();
 				window.open(link,"_blank");
 			}
 			else
+			{
+				chrome.runtime.sendMessage({status:"automatic-scan"});
 				saveSettings();
+			}
 
 		window.close();
 	});
@@ -30,6 +33,10 @@ loadSettings();
 
 	});
 
+	$("a#log").on("click", function(){
+		chrome.tabs.create({ url: chrome.extension.getURL("log.html") });
+	});
+
 
 	function loadSettings()
 	{
@@ -38,9 +45,9 @@ loadSettings();
 			$("input#shoeSize").val(localStorage["shoesize"]);
 		}
 
-		if(localStorage["shoename"] !== undefined)
+		if(localStorage["keywords"] !== undefined)
 		{
-			$("input#shoeName").val(localStorage["shoename"]);
+			$("input#shoeName").val(localStorage["keywords"]);
 		}
 
 		if(localStorage["radioOption"] !== undefined)
@@ -66,7 +73,7 @@ loadSettings();
 	function saveSettings()
 	{
 		localStorage["shoesize"] = $("input#shoeSize").val();
-		localStorage["shoename"] = $("input#shoeName").val();
+		localStorage["keywords"] = $("input#shoeName").val();
 		localStorage["radioOption"] = $("input[name='typeSearch']:checked").val().trim();
 		localStorage["link"] = $("#directLink").val();
 	}

@@ -2,15 +2,19 @@
   "manifest_version": 2,
 
   "name": "MetaBuy Bot",
-  "description": "Adds to cart in a flash.",
+  "description": "Developed by Chris Feo.",
   "version": "1.0.0",
 
   "background": {
     "persistent": false,
-    "scripts": ["bg.js","libs/bootstrap.min.js"]
+    "scripts": ["jquery.min.js","bg.js","libs/bootstrap.min.js"]
   },
 
-  "permissions": [ "tabs", "storage"],
+  "permissions": [ "tabs", "storage", "webNavigation",
+    "*://store.nike.com/*",
+    "*://secure-niketown.nike.com/*",
+    "*://payment.nike.com/*",
+    "*://twitter.com/*"],
 
   "browser_action": {
     "default_icon": "icon.png",

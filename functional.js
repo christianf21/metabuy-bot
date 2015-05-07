@@ -1,13 +1,9 @@
 chrome.runtime.sendMessage({status:"online"});
 
-
+// Any message that it receives, its because the script is online. If the script is online, it means we have opened the store.nike.com
+// and that only means we already want to add to cart. So we request for the shoe size.
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-
-	if(request.option === "direct")
-	{
 		addToCart(request.size);
-	}
-
 });
 
 
