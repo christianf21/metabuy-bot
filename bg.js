@@ -128,7 +128,8 @@ function getLatestTweet(data)
 			var url = retrieveUrlFromTweet(tweet);
 			log("Apparent URL = " + url);
 			log("Now opening in new tab...");
-			window.open(link,"_blank");
+			clearInterval(timer);
+			window.open(url,"_blank");
 		}
 		else
 		{
