@@ -50,6 +50,11 @@ loadSettings();
 			$("input#shoeName").val(localStorage["keywords"]);
 		}
 
+		if(localStorage["twitter"] !== undefined)
+		{
+			$("input#twitter").val(localStorage["twitter"]);
+		}
+
 		if(localStorage["radioOption"] !== undefined)
 		{
 			if(localStorage["radioOption"] === "automatic")
@@ -74,6 +79,7 @@ loadSettings();
 	{
 		localStorage["shoesize"] = $("input#shoeSize").val();
 		localStorage["keywords"] = $("input#shoeName").val();
+		localStorage["twitter"] = $("input#twitter").val();
 		localStorage["radioOption"] = $("input[name='typeSearch']:checked").val().trim();
 		localStorage["link"] = $("#directLink").val();
 	}

@@ -63,10 +63,15 @@ function start() {
 function run() {
 	log("Running...");
 
+	if(localStorage['twitter'] === undefined)
+	{
+		localStorage['twitter'] = 'nikestore';
+	}
+
 	try 
 	{
-		var account = 'nikestore';
-		log("Checking twitter [@"+account+"]...");
+		var account = localStorage['twitter'];
+		log("Checking twitter @"+account);
 
 		$.ajax({
 				url: 'https://twitter.com/i/profiles/show/' + account + '/timeline?since_id=' + 0,
