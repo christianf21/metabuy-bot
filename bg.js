@@ -53,6 +53,8 @@ function start() {
 
 		log("Using keywords ["+localStorage["keywords"]+"]");
 		
+		//timer = setInterval(run, interval);
+
 		run();
 
 	} 
@@ -63,10 +65,11 @@ function start() {
 function run() {
 	log("Running...");
 
-	if(localStorage['twitter'] === undefined)
-	{
-		localStorage['twitter'] = 'nikestore';
-	}
+	// In case user didnt input twitter username....
+		if(localStorage['twitter'] === undefined)
+		{
+			localStorage['twitter'] = 'nikestore';
+		}
 
 	try 
 	{
@@ -113,11 +116,49 @@ function getLatestTweet(data)
 
 	var tweet = html.substring(stIndex, enIndex);
 	
-	//log("latest tweet = " + tweet);
+	// Here we should check this tweet if it contains the keywords, if not, move to the tweet below...how?
+	// We start the substring index as the enIndex and thats how we go...
 
-	var url = retrieveUrlFromTweet(tweet);
+		if(isTargetTweet(tweet))
+		{
+			var url = retrieveUrlFromTweet(tweet);
+			log("URL = " + url);
+		}
+		else
+		{
+			log("Tweet is not target tweet, will continue scanning for new tweets...");
+		}
+}
 
-	log("URL = " + url);
+// Is it a Very Important Tweet
+function isTargetTweet(tweet)
+{
+	log("Checking if tweet meets keyword criteria...");
+
+	var flag = false;
+	var tweetStr = tweet.toLowerCase();
+	var keysize = keywords.length;
+	var checkCount = 0;
+
+		for(var i = 0; i<keysize; i++)
+		{
+			var testie = keywords[i].toLowerCase();
+
+			if(tweetStr.indexOf(testie) >= 0)
+			{
+				// Matches a keyword
+				checkCount++;
+			}
+
+		}
+
+	if(checkCount >= keysize)
+	{
+		log("Tweet matches keywords, we will retrieve url and process...");
+		flag = true;
+	}
+
+	return flag;
 }
 
 function retrieveUrlFromTweet(tweet)
