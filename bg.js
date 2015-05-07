@@ -1,3 +1,7 @@
+var keywords = [];
+var timer = null;
+var interval = 1000;
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 	
 		if(request.resetLog !== undefined) 
@@ -9,6 +13,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 	{
 		log("Requested automatic scan...");
 		start();
+	}
+
+	if(request.status.trim() === "stop-scan")
+	{
+		log("Requested STOP scan...");
+		clearInterval(timer);
 	}
 
 		if(request.status === "online")
@@ -33,9 +43,6 @@ function log(str) {
 	localStorage["log"] += "[" + time + "] " + str + "\n";
 }
 
-var keywords = [];
-var timer = null;
-var interval = 1000;
 
 function start() {
 
@@ -53,10 +60,7 @@ function start() {
 
 		log("Using keywords ["+localStorage["keywords"]+"]");
 		
-		//timer = setInterval(run, interval);
-
-		run();
-
+		timer = setInterval(run, interval);
 	} 
 	else
 		log("Stopping. No keywords defined.");
@@ -122,7 +126,9 @@ function getLatestTweet(data)
 		if(isTargetTweet(tweet))
 		{
 			var url = retrieveUrlFromTweet(tweet);
-			log("URL = " + url);
+			log("Apparent URL = " + url);
+			log("Now opening in new tab...");
+			window.open(link,"_blank");
 		}
 		else
 		{

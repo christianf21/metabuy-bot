@@ -14,11 +14,18 @@ loadSettings();
 			}
 			else
 			{
-				chrome.runtime.sendMessage({status:"automatic-scan"});
 				saveSettings();
 			}
 
 		window.close();
+	});
+
+	$("button#startScan").on("click",function(){
+		chrome.runtime.sendMessage({status:"automatic-scan"});
+	});
+
+	$("button#stopScan").on("click",function(){
+		chrome.runtime.sendMessage({status:"stop-scan"});
 	});
 
 
@@ -29,7 +36,7 @@ loadSettings();
 		if(curr === "direct")
 			$("button#go").text("Go Now!");
 		else
-			$("button#go").text("Update Settings");
+			$("button#go").text("Save Settings");
 
 	});
 
@@ -60,7 +67,7 @@ loadSettings();
 			if(localStorage["radioOption"] === "automatic")
 			{
 				$("input#automatic").prop("checked",true);
-				$("button#go").text("Update Settings");
+				$("button#go").text("Save Settings");
 			}
 			else
 			{
