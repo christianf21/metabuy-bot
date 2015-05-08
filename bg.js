@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
 		if(request.status === "online")
 		{
-			log("functional.js sends ONLINE status...");
+			log("Injection script ONLINE...");
 			chrome.tabs.sendMessage(sender.tab.id, {
 					size: localStorage["shoesize"],
 					option: localStorage["radioOption"]

@@ -21,10 +21,13 @@ loadSettings();
 	});
 
 	$("button#startScan").on("click",function(){
-		chrome.runtime.sendMessage({status:"automatic-scan"});
+		saveSettings();
+		if(fieldsAreFilled())
+			chrome.runtime.sendMessage({status:"automatic-scan"});
 	});
 
 	$("button#stopScan").on("click",function(){
+		saveSettings();
 		chrome.runtime.sendMessage({status:"stop-scan"});
 	});
 
@@ -43,6 +46,29 @@ loadSettings();
 	$("a#log").on("click", function(){
 		chrome.tabs.create({ url: chrome.extension.getURL("log.html") });
 	});
+
+
+	function fieldsAreFilled()
+	{
+		var flag = false;
+
+		if($("input#shoeSize").val() === "")
+		{
+			alert("You need to add a shoe size.");
+		}
+		else if($("input#shoeName").val() === "")
+		{
+			alert("You need to add keywords. Only add the keywords you KNOW will appear on the tweet.");
+		}
+		else if($("input#twitter").val() === "")
+		{
+			alert("You need to add a twitter username to scan to.");
+		}
+		else
+			flag = true;
+
+		return flag;
+	}
 
 
 	function loadSettings()
