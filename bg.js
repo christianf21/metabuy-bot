@@ -29,6 +29,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 					option: localStorage["radioOption"]
 			});
 		}
+
+		if(request.status === "log")
+		{
+			log(request.logtext);
+		}
 });
 
 function log(str) {
