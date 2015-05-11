@@ -2,6 +2,10 @@ $(document).ready(function(){
 localStorage["radioOption"] = "automatic"; // default option when starting the extension
 loadSettings();
 
+	$("a#registerBot").on("click",function(){
+		chrome.runtime.sendMessage({status:"registerbot"});
+	});
+
 	$("button#go").on("click", function(){
 		
 		var option =  $("input[name='typeSearch']:checked").val().trim();

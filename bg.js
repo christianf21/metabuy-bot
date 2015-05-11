@@ -15,6 +15,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 		start();
 	}
 
+	if(request.status.trim() === "registerbot")
+	{
+		log("Requested register bot...");
+		registerBot();
+	}
+
 	if(request.status.trim() === "stop-scan")
 	{
 		log("Requested STOP scan...");
@@ -30,6 +36,25 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 			});
 		}
 });
+
+function registerBot()
+{
+	var token = "23987423hjkw768ehdjk23423we";
+	$.ajax({
+             type : "POST",
+             url :"http://nullwriter.com/bot/testBot",
+             data : {token:token},
+             success : function(data){
+             	log("Success registering bot");
+                alert("Ajax done to register!");
+             },
+			error: function(xhr, textStatus, err) {
+				log("AJAX error registering bot: " + err +","+ JSON.stringify(textStatus) +","+ JSON.stringify(xhr));
+				//if(enabled)
+					//setTimeout(run, interval);
+			}  
+    });
+}
 
 function log(str) {
 
