@@ -19,9 +19,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 	{
 		log("Requested register bot...");
 
-		var hex = $.md5('value');
-		
-		log("MD5 tring out is = " + hex);
+		var pass = "jackie21";
+
+		if(validate(pass))
+		{
+			alert("Bot is activated!!");
+		}
+		else
+			alert("Wrong pass");
 	}
 
 	if(request.status.trim() === "stop-scan")
@@ -40,24 +45,22 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 		}
 });
 
-function registerBot()
+
+function validate(pass)
 {
-	var token = "23987423hjkw768ehdjk23423we";
-	$.ajax({
-             type : "POST",
-             url :"http://nullwriter.com/bot/testBot",
-             data : {token:token},
-             success : function(data){
-             	log("Success registering bot");
-                alert("Ajax done to register!");
-             },
-			error: function(xhr, textStatus, err) {
-				log("AJAX error registering bot: " + err +","+ JSON.stringify(textStatus) +","+ JSON.stringify(xhr));
-				//if(enabled)
-					//setTimeout(run, interval);
-			}  
-    });
+	var salt = "qwjioje23423idjw1231234e837jqhwjq";
+	var check = "b19f5205ea181f90a1278e39110d2a5c";
+
+	var input = CryptoJS.MD5(salt+pass).toString();
+
+	if(input === check)
+	{
+		return true;
+	}
+	else
+		return false;
 }
+
 
 function log(str) {
 

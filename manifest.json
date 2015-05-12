@@ -9,7 +9,7 @@
     "persistent": false,
     "scripts": [
         "jquery.min.js",
-        "jquery.md5.js",
+        "md5.js",
         "bg.js",
         "libs/bootstrap.min.js"
       ]
