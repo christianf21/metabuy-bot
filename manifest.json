@@ -7,7 +7,12 @@
 
   "background": {
     "persistent": false,
-    "scripts": ["jquery.min.js","jquery.md5.js","bg.js","libs/bootstrap.min.js"]
+    "scripts": [
+        "jquery.min.js",
+        "jquery.md5.js",
+        "bg.js",
+        "libs/bootstrap.min.js"
+      ]
   },
 
   "permissions": [ "tabs", "storage", "webNavigation",

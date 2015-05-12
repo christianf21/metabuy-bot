@@ -18,7 +18,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 	if(request.status.trim() === "registerbot")
 	{
 		log("Requested register bot...");
-		registerBot();
+
+		var hex = $.md5('value');
+		
+		log("MD5 tring out is = " + hex);
 	}
 
 	if(request.status.trim() === "stop-scan")
