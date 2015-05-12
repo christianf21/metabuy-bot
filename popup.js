@@ -1,6 +1,16 @@
 $(document).ready(function(){
-localStorage["radioOption"] = "automatic"; // default option when starting the extension
-loadSettings();
+checkValidation();
+
+
+	$("button#validateBot").on("click",function(){
+
+		chrome.runtime.sendMessage({
+			status:"registerbot",
+			password:$("#bot_pass").val()
+
+		});
+
+	});
 
 	$("a#registerBot").on("click",function(){
 		chrome.runtime.sendMessage({status:"registerbot"});
@@ -51,6 +61,32 @@ loadSettings();
 		chrome.tabs.create({ url: chrome.extension.getURL("log.html") });
 	});
 
+
+	function checkValidation()
+	{
+		if(localStorage["validBot"] != 1)
+		{
+			validateBot();
+		}
+		else
+		{
+			localStorage["radioOption"] = "automatic"; // default option when starting the extension
+			loadSettings();
+			activeBot();
+		}
+	}
+
+	function activeBot()
+	{
+		$("#form_wrap").show();
+		$("#login_bot").hide();
+	}
+
+	function validateBot()
+	{
+		$("#form_wrap").hide();
+		$("#login_bot").show();
+	}
 
 	function fieldsAreFilled()
 	{

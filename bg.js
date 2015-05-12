@@ -1,7 +1,7 @@
 var keywords = [];
 var timer = null;
 var interval = 1000;
-
+localStorage["validBot"] = 0;
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 	
 		if(request.resetLog !== undefined) 
@@ -19,11 +19,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 	{
 		log("Requested register bot...");
 
-		var pass = "jackie21";
+		var pass = request.password;
 
 		if(validate(pass))
 		{
 			alert("Bot is activated!!");
+			localStorage["validBot"] = 1;
 		}
 		else
 			alert("Wrong pass");

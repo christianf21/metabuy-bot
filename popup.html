@@ -16,7 +16,7 @@
 		#content
 		{
 			min-width:400px;
-			min-height:200px;
+			min-height:50px;
 		}
 
 		#button
@@ -69,6 +69,19 @@
 		{
 			margin:0 auto;
 			text-align: center;
+		}
+
+		#login_bot
+		{
+			margin-top: 100px;
+			width: 200px;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		#validateBot
+		{
+			margin-top: 20px;
 		}
 
 	</style>
@@ -132,11 +145,21 @@
 		  <div style="float:right;">
 		  	<a href="javascript:void(0)" id="log">open log</a>
 		  </div>
-		  <div style="float:left;">
-		  	<a id="registerBot" href="#">register bot</a>
-		  </div>
 		  <br />
 	</div>
+
+	<div id="login_bot">
+		<div class="form-group">
+		    <label for="bot_pass" class="inline">Activate: </label>
+		    <input type="text" class="form-control inline" id="bot_pass" placeholder="Enter password">
+
+		    <br />
+		    <button type="submit" class="btn btn-primary" id="validateBot">
+		  		Activate Bot
+	  		</button>
+	  	</div>
+	</div>
+
 
 <br />
 </div>
