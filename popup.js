@@ -2,27 +2,7 @@ $(document).ready(function(){
 
 	localStorage["radioOption"] = "automatic"; // default option when starting the extension
 	loadSettings();
-
-	$("#test").on("click",function(){
-		chrome.runtime.sendMessage({
-			status:"contact-server"
-		});
-	});
-
-	$("button#validateBot").on("click",function(){
-
-		chrome.runtime.sendMessage({
-			status:"registerbot",
-			password:$("#bot_pass").val()
-
-		});
-
-	});
-
-	$("a#registerBot").on("click",function(){
-		chrome.runtime.sendMessage({status:"registerbot"});
-	});
-
+	
 	$("button#go").on("click", function(){
 		
 		var option =  $("input[name='typeSearch']:checked").val().trim();

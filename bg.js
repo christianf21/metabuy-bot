@@ -30,7 +30,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 				if(localStorage['validBot'] == 1)
 					start();
 				else
+				{
 					log("You need to activate the bot to be able to use its features...");
+					alert("You need to activate the bot to be able to use its features...");
+				}
 			}
 
 			// Stop scan requests here
