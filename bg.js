@@ -90,7 +90,7 @@ function contactServer(user,pass,sender)
 	log("Cross-checking account with server...");
 
 	$.ajax({
-				url: 'http://nullwriter.com/bot/testBot?u='+user+'&p='+pass,
+				url: 'http://nullwriter.com/bot/validate?u='+user+'&p='+pass,
 				type: "GET",
 				success: function(data){
 					log("Sucess contacting server...");
