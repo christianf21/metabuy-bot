@@ -1,6 +1,13 @@
 $(document).ready(function(){
-checkValidation();
 
+	localStorage["radioOption"] = "automatic"; // default option when starting the extension
+	loadSettings();
+
+	$("#test").on("click",function(){
+		chrome.runtime.sendMessage({
+			status:"contact-server"
+		});
+	});
 
 	$("button#validateBot").on("click",function(){
 
@@ -64,28 +71,15 @@ checkValidation();
 
 	function checkValidation()
 	{
-		if(localStorage["validBot"] != 1)
-		{
-			validateBot();
-		}
-		else
+		if(localStorage["validBot"] === 1)
 		{
 			localStorage["radioOption"] = "automatic"; // default option when starting the extension
 			loadSettings();
-			activeBot();
 		}
-	}
+		else
+		{
 
-	function activeBot()
-	{
-		$("#form_wrap").show();
-		$("#login_bot").hide();
-	}
-
-	function validateBot()
-	{
-		$("#form_wrap").hide();
-		$("#login_bot").show();
+		}
 	}
 
 	function fieldsAreFilled()

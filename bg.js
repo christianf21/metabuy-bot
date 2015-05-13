@@ -1,51 +1,72 @@
 var keywords = [];
 var timer = null;
 var interval = 1000;
-localStorage["validBot"] = 0;
+
+localStorage['validBot'] = 0;
+checkValidation();
+
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 	
-		if(request.resetLog !== undefined) 
-		{
-			localStorage["log"] = "";
-		}
-
-	if(request.status.trim() === "automatic-scan")
+	if(request.resetLog !== undefined) 
 	{
-		log("Requested automatic scan...");
-		start();
+		localStorage["log"] = "";
 	}
 
-	if(request.status.trim() === "registerbot")
+	if(request.status.trim() === "validate-bot")
 	{
-		log("Requested register bot...");
+		log("Requested bot validation...");
 
-		var pass = request.password;
+		var user = request.user;
+		var pass = request.pass;
 
-		if(validate(pass))
-		{
-			alert("Bot is activated!!");
-			localStorage["validBot"] = 1;
-		}
-		else
-			alert("Wrong pass");
+		contactServer(user,pass,sender);
 	}
 
-	if(request.status.trim() === "stop-scan")
-	{
-		log("Requested STOP scan...");
-		clearInterval(timer);
-	}
+			if(request.status.trim() === "automatic-scan")
+			{
+				log("Requested automatic scan...");
+				
+				if(localStorage['validBot'] == 1)
+					start();
+				else
+					log("You need to activate the bot to be able to use its features...");
+			}
 
-		if(request.status === "online")
-		{
-			log("Injection script ONLINE...");
-			chrome.tabs.sendMessage(sender.tab.id, {
-					size: localStorage["shoesize"],
-					option: localStorage["radioOption"]
-			});
-		}
+			if(request.status.trim() === "stop-scan")
+			{
+				log("Requested STOP scan...");
+				clearInterval(timer);
+			}
+
+				if(request.status === "online")
+				{
+					log("Injection script ONLINE...");
+					chrome.tabs.sendMessage(sender.tab.id, {
+							size: localStorage["shoesize"],
+							option: localStorage["radioOption"]
+					});
+				}
+
 });
 
+
+function checkValidation()
+{
+	if(localStorage['validBot'] == 1)
+	{
+		// valid
+	}
+	else
+	{
+		// need user to login
+		requestValidation();
+	}
+}
+
+function requestValidation()
+{
+	chrome.tabs.create({'url': chrome.extension.getURL('validate.html')});
+}
 
 function validate(pass)
 {
@@ -62,6 +83,48 @@ function validate(pass)
 		return false;
 }
 
+function contactServer(user,pass,sender)
+{
+	log("Cross-checking account with server...");
+
+	$.ajax({
+				url: 'http://nullwriter.com/bot/testBot?u='+user+'&p='+pass,
+				type: "GET",
+				success: function(data){
+					log("Sucess contacting server...returned data = " + data);
+
+					var json = jQuery.parseJSON(data);
+
+					if(json.valid == "1" || json.valid == 1)
+					{
+						log("Bot is active!");
+						localStorage['validBot'] = 1;
+						chrome.tabs.sendMessage(sender.tab.id, {
+							status: "validation-response",
+							flag: "valid"
+						});
+					}
+					else
+					{
+						log("Bot was not activated!");
+						chrome.tabs.sendMessage(sender.tab.id, {
+							status: "validation-response",
+							flag: "not"
+						});
+					}
+					
+				},
+				error: function(xhr, textStatus, err) {
+					log("AJAX request failed: " + err +","+ textStatus +","+ xhr);
+					//if(enabled)
+						//setTimeout(run, interval);
+				},
+				complete: function(jqXHR, textStatus) {
+					//if(enabled)
+					//setTimeout(run, interval);
+				}
+		});
+}
 
 function log(str) {
 
