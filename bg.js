@@ -22,6 +22,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 		contactServer(user,pass,sender);
 	}
 
+			// Automatic scan requests here
 			if(request.status.trim() === "automatic-scan")
 			{
 				log("Requested automatic scan...");
@@ -32,20 +33,22 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 					log("You need to activate the bot to be able to use its features...");
 			}
 
+			// Stop scan requests here
 			if(request.status.trim() === "stop-scan")
 			{
 				log("Requested STOP scan...");
 				clearInterval(timer);
 			}
 
-				if(request.status === "online")
-				{
-					log("Injection script ONLINE...");
-					chrome.tabs.sendMessage(sender.tab.id, {
-							size: localStorage["shoesize"],
-							option: localStorage["radioOption"]
-					});
-				}
+			// This is where the content script comes to play with the background
+			if(request.status === "online")
+			{
+				log("Injection script ONLINE...");
+				chrome.tabs.sendMessage(sender.tab.id, {
+						size: localStorage["shoesize"],
+						option: localStorage["radioOption"]
+				});
+			}
 
 });
 
@@ -59,15 +62,11 @@ function checkValidation()
 	else
 	{
 		// need user to login
-		requestValidation();
+		chrome.tabs.create({'url': chrome.extension.getURL('validate.html')});
 	}
 }
 
-function requestValidation()
-{
-	chrome.tabs.create({'url': chrome.extension.getURL('validate.html')});
-}
-
+// Deprecated function
 function validate(pass)
 {
 	var salt = "qwjioje23423idjw1231234e837jqhwjq";
@@ -91,7 +90,7 @@ function contactServer(user,pass,sender)
 				url: 'http://nullwriter.com/bot/testBot?u='+user+'&p='+pass,
 				type: "GET",
 				success: function(data){
-					log("Sucess contacting server...returned data = " + data);
+					log("Sucess contacting server...");
 
 					var json = jQuery.parseJSON(data);
 
@@ -112,16 +111,9 @@ function contactServer(user,pass,sender)
 							flag: "not"
 						});
 					}
-					
 				},
 				error: function(xhr, textStatus, err) {
 					log("AJAX request failed: " + err +","+ textStatus +","+ xhr);
-					//if(enabled)
-						//setTimeout(run, interval);
-				},
-				complete: function(jqXHR, textStatus) {
-					//if(enabled)
-					//setTimeout(run, interval);
 				}
 		});
 }
