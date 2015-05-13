@@ -2,6 +2,9 @@ var keywords = [];
 var timer = null;
 var interval = 1000;
 
+var version = chrome.app.getDetails().version;
+
+
 localStorage['validBot'] = 0;
 checkValidation();
 
@@ -114,6 +117,9 @@ function contactServer(user,pass,sender)
 							flag: "not"
 						});
 					}
+
+					localStorage['latestVersion'] = json.version;
+
 				},
 				error: function(xhr, textStatus, err) {
 					log("AJAX request failed: " + err +","+ textStatus +","+ xhr);

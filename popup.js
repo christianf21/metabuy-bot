@@ -2,7 +2,9 @@ $(document).ready(function(){
 
 	localStorage["radioOption"] = "automatic"; // default option when starting the extension
 	loadSettings();
-	
+
+	checkVersion();
+
 	$("button#go").on("click", function(){
 		
 		var option =  $("input[name='typeSearch']:checked").val().trim();
@@ -51,6 +53,21 @@ $(document).ready(function(){
 	$("a#help").on("click", function(){
 		chrome.tabs.create({ url: chrome.extension.getURL("howtouse.html") });
 	});
+
+	function checkVersion()
+	{
+		if(localStorage['latestVersion'] != undefined)
+		{
+			var curr = chrome.app.getDetails().version;
+			
+			if( curr != localStorage['latestVersion'])
+			{
+				$("#bot-msg").text("New bot version available! -> " + localStorage['latestVersion']);
+			}
+			else
+				$("#bot-msg").text("Bot is up to date");
+		}
+	}
 
 	function checkValidation()
 	{
