@@ -68,6 +68,9 @@ $(document).ready(function(){
 		chrome.tabs.create({ url: chrome.extension.getURL("log.html") });
 	});
 
+	$("a#help").on("click", function(){
+		chrome.tabs.create({ url: chrome.extension.getURL("howtouse.html") });
+	});
 
 	function checkValidation()
 	{
