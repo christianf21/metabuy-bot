@@ -255,7 +255,7 @@ function isTargetTweet(tweet)
 
 		}
 
-	if(checkCount >= keysize)
+	if(checkCount >= 1)
 	{
 		log("Tweet matches keywords, we will retrieve url and process...");
 		flag = true;
