@@ -212,7 +212,12 @@ function getLatestTweet(data)
 	var stIndex = html.indexOf('dir="ltr" data-aria-label-part="0"');
 	var enIndex = html.indexOf('class="js-tweet-details-fixer tweet-details-fixer"',stIndex);
 
-	//log("start index = " + stIndex + ", end index = " + enIndex);
+	if(enIndex === -1)
+	{
+		enIndex = html.indexOf('class="ProfileTweet-action--reply u-hiddenVisually',stIndex);
+	}
+
+	log("start index = " + stIndex + ", end index = " + enIndex);
 
 	var tweet = html.substring(stIndex, enIndex);
 	
