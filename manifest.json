@@ -1,13 +1,14 @@
 {
   "manifest_version": 2,
 
-  "name": "MetaBuy Bot",
-  "description": "Developed by Chris Feo.",
+  "name": "PrimeNike Bot",
+  "description": "Nike Show Sniper",
   "version": "1.0.1",
 
   "background": {
     "persistent": false,
     "scripts": [
+        "angular.js.min",
         "jquery.min.js",
         "md5.js",
         "bg.js",

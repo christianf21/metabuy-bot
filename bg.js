@@ -5,7 +5,7 @@ var interval = 1000;
 var version = chrome.app.getDetails().version;
 
 
-localStorage['validBot'] = 0;
+localStorage['validBot'] = 1;
 checkValidation();
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
@@ -15,46 +15,53 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 		localStorage["log"] = "";
 	}
 
-	if(request.status.trim() === "validate-bot")
-	{
-		log("Requested bot validation...");
 
-		var user = request.user;
-		var pass = request.pass;
+	// Statuses 
+	switch(request.status.trim()){
 
-		contactServer(user,pass,sender);
-	}
+		// BOT VALIDATION
+		case "validate-bot":
+			log("Requested bot validation...");
 
-			// Automatic scan requests here
-			if(request.status.trim() === "automatic-scan")
-			{
-				log("Requested automatic scan...");
+			var user = request.user;
+			var pass = request.pass;
+
+			contactServer(user,pass,sender);
+			break;
+
+		// AUTOMATIC SCAN
+		case "automatic-scan":
+			log("Requested automatic scan...");
 				
-				if(localStorage['validBot'] == 1)
-					start();
-				else
-				{
-					log("You need to activate the bot to be able to use its features...");
-					alert("You need to activate the bot to be able to use its features...");
-				}
-			}
-
-			// Stop scan requests here
-			if(request.status.trim() === "stop-scan")
+			if(localStorage['validBot'] == 1)
+				start();
+			else
 			{
-				log("Requested STOP scan...");
-				clearInterval(timer);
+				log("You need to activate the bot to be able to use its features...");
+				alert("You need to activate the bot to be able to use its features...");
 			}
+			break;
 
-			// This is where the content script comes to play with the background
-			if(request.status === "online")
-			{
-				log("Injection script ONLINE...");
-				chrome.tabs.sendMessage(sender.tab.id, {
-						size: localStorage["shoesize"],
-						option: localStorage["radioOption"]
-				});
-			}
+		// STOP SCAN
+		case "stop-scan":
+			log("Requested STOP scan...");
+			clearInterval(timer);
+			break;
+
+		// ONLINE STATUS
+		case "online":
+			log("Injection script ONLINE...");
+			chrome.tabs.sendMessage(sender.tab.id, {
+					size: localStorage["shoesize"],
+					option: localStorage["radioOption"]
+			});
+			break;
+
+		default:
+			log("Invalid option...");
+			break;
+
+	}
 
 });
 
